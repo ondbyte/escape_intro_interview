@@ -36,9 +36,12 @@ void printShortestPathToVisitAllContinentFromSourceWithDistanceTravelled(
   var currentCity = source;
   final path = <City>{};
   var distanceTravelledInMeters = 0.0;
+  //zero index
+  var maxContinents = 5;
 
   //from source to all other continent
   while (() {
+    maxContinents--;
     cities.removeWhere((e) => e.contId == currentCity.contId);
     return cities.isNotEmpty;
   }()) {
@@ -48,7 +51,11 @@ void printShortestPathToVisitAllContinentFromSourceWithDistanceTravelled(
       cities,
       closest,
     );
-    currentCity = closestCityWithDistance.city;
+    if (maxContinents == 0) {
+      currentCity = source;
+    } else {
+      currentCity = closestCityWithDistance.city;
+    }
     distanceTravelledInMeters += closestCityWithDistance.distance;
   }
 
@@ -65,7 +72,8 @@ void printShortestPathToVisitAllContinentFromSourceWithDistanceTravelled(
   print((path.map((e) => e.id + "(${e.name})").toList()
         ..add(source.id + "(${source.name})"))
       .join("-->"));
-  print("Distance travelled in KMs ${distanceTravelledInMeters / 1000}");
+  print(
+      "${closest ? "Closest" : "Farthest"} distance travelled in KMs ${distanceTravelledInMeters / 1000}");
 }
 
 ///returns closest city in the [cities] set to the [city] and its distance

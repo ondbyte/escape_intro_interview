@@ -8,7 +8,7 @@
             "name": "escape",
             "request": "launch",
             "type": "dart",
-            "args": ["./cities.json", "BOM","true"]
+            "args": ["./cities.json", "BOM",]
         }
     ]
 }
